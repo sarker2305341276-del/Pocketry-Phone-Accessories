@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pocketry – Phone Accessories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef1f6; --surface:#fff; --ink:#11151c; --muted:#556070; --line:#d5dbe5;
+  --accent:#5b3df5; --on-accent:#fff; --mint:#12b892;
+  color-scheme:light;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#12151d; --surface:#1b202b; --ink:#eaeef6; --muted:#9aa5b8; --line:#2d3544;
+    --accent:#9a86ff; --on-accent:#12151d; --mint:#3ddbb4; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12151d; --surface:#1b202b; --ink:#eaeef6; --muted:#9aa5b8; --line:#2d3544;
+  --accent:#9a86ff; --on-accent:#12151d; --mint:#3ddbb4; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:Sora,"DM Sans",system-ui,sans-serif;margin:0;line-height:1.08;letter-spacing:-.025em}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--surface);border-bottom:1px solid var(--line);z-index:9}
+nav{display:flex;align-items:center;gap:18px;min-height:62px;flex-wrap:wrap;padding-block:8px}
+.logo{font:800 21px Sora,sans-serif;text-decoration:none;color:var(--ink);margin-right:auto}
+.logo i{color:var(--accent);font-style:normal}
+nav a.link{text-decoration:none;color:var(--ink);font-weight:500;padding:6px 2px;border-bottom:2px solid transparent}
+nav a.link[aria-current="page"]{border-color:var(--accent)}
+.cart{font-weight:700;background:var(--ink);color:var(--bg);border-radius:99px;padding:6px 14px;font-size:15px}
+.btn{display:inline-block;background:var(--accent);color:var(--on-accent);border:0;border-radius:12px;padding:13px 22px;font:700 16px "DM Sans",sans-serif;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.view{display:none;padding:52px 0 80px}
+.view.on{display:block}
+h2{font-size:clamp(30px,5vw,50px);font-weight:700;margin-bottom:10px}
+.lede{color:var(--muted);max-width:56ch;margin:0 0 32px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(40px,7.5vw,80px);font-weight:800}
+.hero p{color:var(--muted);font-size:19px;max-width:44ch;margin:20px 0 26px}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:36px 20px;display:flex;flex-direction:column;align-items:center;gap:22px}
+.phone{width:170px;height:330px;border-radius:34px;background:var(--cc,#5b3df5);position:relative;box-shadow:inset 0 0 0 6px rgba(255,255,255,.22),0 20px 40px -18px rgba(0,0,0,.45);transition:background .25s}
+.phone::before{content:"";position:absolute;left:14px;top:14px;width:62px;height:62px;border-radius:18px;background:rgba(0,0,0,.28)}
+.phone::after{content:"";position:absolute;left:24px;top:24px;width:20px;height:20px;border-radius:50%;background:#0b0d12;box-shadow:24px 0 0 #0b0d12,0 26px 0 #0b0d12,24px 26px 0 #0b0d12;opacity:.9}
+.swatches{display:flex;gap:10px;align-items:center}
+.swatches span{font-size:15px;color:var(--muted);margin-right:4px}
+.sw{width:32px;height:32px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--line);cursor:pointer;padding:0;background:var(--c)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:64px;padding-top:32px;border-top:1px solid var(--line)}
+.perks h3{font-size:20px;margin-bottom:6px}
+.perks p{margin:0;color:var(--muted)}
+
+/* shop */
+.tools{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-bottom:26px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:var(--surface);border:1.5px solid var(--line);color:var(--ink);border-radius:99px;padding:8px 16px;font:500 15px "DM Sans",sans-serif;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+select{font:500 15px "DM Sans",sans-serif;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:8px 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.art{height:190px;background:var(--bg);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line)}
+.card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h3{font-size:18px}
+.meta{color:var(--muted);font-size:15px}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:12px}
+.price{font:700 20px Sora,sans-serif}
+.card .btn{padding:9px 15px;font-size:15px}
+/* product shapes */
+.i-case{width:84px;height:150px;border-radius:22px;background:var(--p);position:relative;box-shadow:inset 0 0 0 4px rgba(255,255,255,.25)}
+.i-case::before{content:"";position:absolute;left:9px;top:9px;width:36px;height:36px;border-radius:11px;background:rgba(0,0,0,.28)}
+.i-cable{width:130px;height:130px;border:10px solid var(--p);border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;transform:rotate(-20deg);position:relative}
+.i-cable::after{content:"";position:absolute;right:-18px;top:62px;width:16px;height:30px;border-radius:4px;background:var(--ink)}
+.i-charger{width:76px;height:76px;border-radius:16px;background:var(--p);position:relative}
+.i-charger::before{content:"";position:absolute;left:18px;right:18px;top:-20px;height:20px;background:linear-gradient(90deg,var(--ink) 0 14px,transparent 14px 26px,var(--ink) 26px 40px)}
+.i-buds{display:flex;gap:16px}
+.i-buds b{width:46px;height:62px;border-radius:50% 50% 48% 48%;background:var(--p);position:relative}
+.i-buds b::after{content:"";position:absolute;left:18px;top:50px;width:10px;height:40px;border-radius:5px;background:var(--p)}
+.i-glass{width:84px;height:150px;border-radius:16px;border:3px solid var(--p);background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.55) 45% 52%,transparent 57%)}
+.i-bank{width:76px;height:130px;border-radius:16px;background:var(--p);position:relative}
+.i-bank::before{content:"";position:absolute;left:14px;right:14px;top:16px;height:8px;border-radius:4px;background:rgba(255,255,255,.55);box-shadow:0 14px 0 rgba(255,255,255,.35),0 28px 0 rgba(255,255,255,.2)}
+
+/* support */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+summary{font-weight:700;cursor:pointer}
+details p{margin:10px 0 0;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px}
+.panel h3{font-size:22px;margin-bottom:8px}
+.panel p{margin:0 0 14px;color:var(--muted)}
+.result{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--bg);border:1px solid var(--line);min-height:52px}
+
+/* contact */
+.facts{margin:0;padding:0;list-style:none}
+.facts li{padding:12px 0;border-bottom:1px solid var(--line)}
+.facts b{display:block}
+.facts span{color:var(--muted)}
+label{display:block;font-weight:700;margin:16px 0 6px}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px}
+textarea{min-height:130px;resize:vertical}
+.err{color:#d03b3b;font-size:15px;min-height:1.4em;margin-top:6px}
+.ok{display:none;margin-top:14px;padding:14px 16px;border-radius:10px;background:var(--mint);color:#06231b;font-weight:500}
+.ok.show{display:block}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (max-width:760px){
+  .hero,.split,.perks{grid-template-columns:1fr}
+  .view{padding:34px 0 56px}
+}
+@media (prefers-reduced-motion:reduce){.phone{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <nav class="wrap" aria-label="Main">
+    <a class="logo" href="#home">Pocket<i>ry</i></a>
+    <a class="link" href="#home" data-nav="home">Home</a>
+    <a class="link" href="#shop" data-nav="shop">Shop</a>
+    <a class="link" href="#support" data-nav="support">Support</a>
+    <a class="link" href="#contact" data-nav="contact">Contact</a>
+    <span class="cart" aria-live="polite">Cart: <span id="count">0</span> · $<span id="total">0</span></span>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="view" id="v-home">
+    <div class="hero">
+      <div>
+        <h1>Gear that keeps your phone going.</h1>
+        <p>Slim cases, fast chargers, tough cables and clear screen protectors for iPhone, Samsung Galaxy and Google Pixel. Free shipping over $35.</p>
+        <div class="row">
+          <a class="btn" href="#shop">Shop accessories</a>
+          <a class="btn ghost" href="#support">Check compatibility</a>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="phone" id="phone" aria-label="Phone with a colored case"></div>
+        <div class="swatches" role="group" aria-label="Case color">
+          <span>Case color</span>
+          <button class="sw" style="--c:#5b3df5" data-c="#5b3df5" aria-label="Violet" aria-pressed="true"></button>
+          <button class="sw" style="--c:#12b892" data-c="#12b892" aria-label="Mint" aria-pressed="false"></button>
+          <button class="sw" style="--c:#f26b4f" data-c="#f26b4f" aria-label="Coral" aria-pressed="false"></button>
+          <button class="sw" style="--c:#2d3340" data-c="#2d3340" aria-label="Graphite" aria-pressed="false"></button>
+        </div>
+      </div>
+    </div>
+    <div class="perks">
+      <div><h3>Drop tested</h3><p>Our cases survive 2 m falls onto concrete, tested on real phones.</p></div>
+      <div><h3>Fast charging</h3><p>USB-C chargers up to 65 W, with built-in protection against overheating.</p></div>
+      <div><h3>30-day returns</h3><p>Not the right fit? Send it back within 30 days for a full refund.</p></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-shop">
+    <h2>Shop</h2>
+    <p class="lede">Every item ships within 24 hours and comes with a 12-month warranty.</p>
+    <div class="tools">
+      <div class="filters" role="group" aria-label="Filter products">
+        <button class="chip" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" data-f="cases" aria-pressed="false">Cases</button>
+        <button class="chip" data-f="power" aria-pressed="false">Charging</button>
+        <button class="chip" data-f="audio" aria-pressed="false">Audio</button>
+        <button class="chip" data-f="protect" aria-pressed="false">Protection</button>
+      </div>
+      <label for="sort" class="meta" style="margin:0">Sort
+        <select id="sort"><option value="feat">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select>
+      </label>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="view" id="v-support">
+    <div class="split">
+      <div>
+        <h2>Support</h2>
+        <p class="lede">Quick answers to the most common questions.</p>
+        <details><summary>How long does shipping take?</summary><p>Orders ship within 24 hours. Delivery takes 2 to 5 business days.</p></details>
+        <details><summary>What is your return policy?</summary><p>Return any unused item within 30 days for a full refund. We email you a prepaid label.</p></details>
+        <details><summary>Do chargers work with all phones?</summary><p>Our USB-C chargers work with any phone that charges over USB-C. Fast charging speed depends on your phone.</p></details>
+        <details><summary>What does the warranty cover?</summary><p>Manufacturing defects for 12 months. It does not cover damage from drops or water.</p></details>
+      </div>
+      <div class="panel">
+        <h3>Case compatibility</h3>
+        <p>Pick your phone to see which cases fit.</p>
+        <label for="model" style="margin-top:0">Phone model</label>
+        <select id="model" style="width:100%">
+          <option value="">Select a model</option>
+          <option>iPhone 16</option><option>iPhone 15</option><option>Samsung Galaxy S25</option><option>Samsung Galaxy S24</option><option>Google Pixel 9</option><option>Google Pixel 8</option>
+        </select>
+        <div class="result" id="result" role="status">Your results will appear here.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-contact">
+    <div class="split">
+      <div>
+        <h2>Contact us</h2>
+        <p class="lede">Questions about an order or a product? We reply within one working day.</p>
+        <ul class="facts">
+          <li><b>Email</b><span>help@pocketry.example</span></li>
+          <li><b>Phone</b><span>+1 555 0142</span></li>
+          <li><b>Hours</b><span>Monday to Friday, 9 am to 6 pm</span></li>
+        </ul>
+      </div>
+      <div>
+        <label for="name" style="margin-top:0">Your name</label>
+        <input id="name" autocomplete="name">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email">
+        <label for="msg">Message</label>
+        <textarea id="msg"></textarea>
+        <div class="err" id="err" role="alert"></div>
+        <button class="btn" id="send" type="button">Send message</button>
+        <div class="ok" id="ok" role="status">Message sent. We’ll reply within one working day.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Pocketry</span><span>Free shipping over $35</span></div></footer>
+
+<script>
+var P=[
+ {n:"Slim Shield case",t:"cases",p:19,i:"case",c:"#5b3df5",m:"Slim, drop tested to 2 m"},
+ {n:"Rugged Armor case",t:"cases",p:29,i:"case",c:"#2d3340",m:"Dual layer, raised edges"},
+ {n:"Clear Grip case",t:"cases",p:17,i:"case",c:"#8fb8ff",m:"Clear, anti-yellowing"},
+ {n:"65 W USB-C charger",t:"power",p:34,i:"charger",c:"#12b892",m:"Charges phone and laptop"},
+ {n:"Braided USB-C cable",t:"power",p:14,i:"cable",c:"#f26b4f",m:"2 m, 100 W rated"},
+ {n:"10,000 mAh power bank",t:"power",p:39,i:"bank",c:"#5b3df5",m:"Two charges, 22 W output"},
+ {n:"Air Buds earbuds",t:"audio",p:49,i:"buds",c:"#2d3340",m:"Noise reduction, 24 h battery"},
+ {n:"Glass screen protector",t:"protect",p:12,i:"glass",c:"#12b892",m:"2-pack, 9H hardness"}
+];
+var COMPAT={
+ "iPhone 16":["Slim Shield case","Rugged Armor case","Clear Grip case"],
+ "iPhone 15":["Slim Shield case","Clear Grip case"],
+ "Samsung Galaxy S25":["Rugged Armor case","Clear Grip case"],
+ "Samsung Galaxy S24":["Slim Shield case","Rugged Armor case"],
+ "Google Pixel 9":["Slim Shield case","Clear Grip case"],
+ "Google Pixel 8":["Rugged Armor case"]
+};
+var count=0,total=0,filter="all",sort="feat";
+function icon(x){
+  if(x.i==="buds")return '<div class="i-buds" style="--p:'+x.c+'"><b></b><b></b></div>';
+  return '<div class="i-'+x.i+'" style="--p:'+x.c+'"></div>';
+}
+function renderGrid(){
+  var g=document.getElementById("grid");g.innerHTML="";
+  var list=P.filter(function(x){return filter==="all"||x.t===filter});
+  if(sort==="low")list.sort(function(a,b){return a.p-b.p});
+  if(sort==="high")list.sort(function(a,b){return b.p-a.p});
+  list.forEach(function(x){
+    var d=document.createElement("article");d.className="card";
+    d.innerHTML='<div class="art">'+icon(x)+'</div><div class="body"><h3>'+x.n+'</h3><div class="meta">'+x.m+'</div><div class="foot"><span class="price">$'+x.p+'</span><button class="btn" type="button">Add to cart</button></div></div>';
+    d.querySelector("button").addEventListener("click",function(e){
+      count++;total+=x.p;
+      document.getElementById("count").textContent=count;
+      document.getElementById("total").textContent=total;
+      e.target.textContent="Added";setTimeout(function(){e.target.textContent="Add to cart"},1200);
+    });
+    g.appendChild(d);
+  });
+}
+document.querySelectorAll(".chip").forEach(function(b){
+  b.addEventListener("click",function(){
+    filter=b.dataset.f;
+    document.querySelectorAll(".chip").forEach(function(c){c.setAttribute("aria-pressed",c===b?"true":"false")});
+    renderGrid();
+  });
+});
+document.getElementById("sort").addEventListener("change",function(e){sort=e.target.value;renderGrid()});
+var phone=document.getElementById("phone");
+function setColor(c){phone.style.setProperty("--cc",c)}
+setColor("#5b3df5");
+document.querySelectorAll(".sw").forEach(function(b){
+  b.addEventListener("click",function(){
+    setColor(b.dataset.c);
+    document.querySelectorAll(".sw").forEach(function(s){s.setAttribute("aria-pressed",s===b?"true":"false")});
+  });
+});
+document.getElementById("model").addEventListener("change",function(e){
+  var r=document.getElementById("result"),m=e.target.value;
+  if(!m){r.textContent="Your results will appear here.";return}
+  r.textContent="Cases that fit the "+m+": "+COMPAT[m].join(", ")+".";
+});
+var PAGES=["home","shop","support","contact"];
+function route(){
+  var h=(location.hash||"#home").slice(1);if(PAGES.indexOf(h)<0)h="home";
+  PAGES.forEach(function(p){
+    document.getElementById("v-"+p).classList.toggle("on",p===h);
+    var a=document.querySelector('[data-nav="'+p+'"]');
+    if(p===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+  });
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+document.getElementById("send").addEventListener("click",function(){
+  var n=document.getElementById("name").value.trim(),e=document.getElementById("email").value.trim(),m=document.getElementById("msg").value.trim();
+  var err=document.getElementById("err"),ok=document.getElementById("ok");
+  ok.classList.remove("show");
+  if(!n||!m){err.textContent="Enter your name and a message.";return}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){err.textContent="Enter a valid email address.";return}
+  err.textContent="";ok.classList.add("show");
+  ["name","email","msg"].forEach(function(i){document.getElementById(i).value=""});
+});
+renderGrid();route();
+</script>
+</body>
+</html>
